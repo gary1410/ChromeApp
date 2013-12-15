@@ -1,10 +1,8 @@
 localStorage.startTime = 9
-localStorage.endTime = 15
-localStorage.weekdaysArray = [1,2,3,4,5]
+localStorage.endTime = 17
 
 var start = localStorage.startTime
 var end = localStorage.endTime
-var weekdays = localStorage.weekdaysArray
 
 var today = new Date()
 
@@ -21,7 +19,9 @@ function checkHours() {
   }
 }
 
-function checkDay() 
+function checkDay()
+  weekdays = localStorage.getItem("weekdays_array") || '[]'
+  weekdays = JSON.parse(weekdays) 
   {
     for(i=0; i<weekdays.length; i++) {
       if (today.getDay() === weekdays[i]) {
