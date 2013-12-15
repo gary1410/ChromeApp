@@ -1,4 +1,4 @@
-var blacklist = ["www.reddit.com", "www.tumblr.com"];
+var blacklist = localStorage.getItem("blacklist") || '[]'
 
 var Controller = {
   init: function(){
@@ -7,11 +7,12 @@ var Controller = {
   },
 
   checkBlacklist: function(){
-    for(i=0; i<blacklist.length; i++) {
-      if (window.location.hostname === blacklist[i]) {
+    var blacklist_var = JSON.parse(blacklist)
+    for(i=0; i<blacklist_var.length; i++) {
+      if (window.location.hostname === blacklist_var[i]) {
         newDoc();
       } else {
-        console.log("It's cool.");
+        // console.log("It's cool.");
       }
     }
   },
@@ -21,16 +22,24 @@ var Controller = {
   },
 
   submit: function(){
-    $("#website_submission").submit(function(){
+    $("#website_submission").on('submit', function(e){
+      e.preventDefault();
+      // e.stopPropagation();
+      console.log("I'm running");
       var $inputs = $("#website_submission :input");
-      var value = {};
       $inputs.each(function(){
-        value[this.name] = $(this).val();
-        debugger
+        if ( this.type === "text" ) {
+          var websites = localStorage.getItem("blacklist") || '[]'
+          websites = JSON.parse(websites)
+          websites.push( $(this).val() )
+          websites = JSON.stringify(websites)
+          localStorage.setItem("blacklist",websites)
+        }
       })
     })
   }
-};
+}
+
 
 $(document).ready(function(){
   Controller.init();

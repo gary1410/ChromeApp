@@ -1,12 +1,13 @@
 localStorage.startTime = 9
 localStorage.endTime = 15
-localStorage.weekdaysArray = [1,2,3]
+localStorage.weekdaysArray = [1,2,3,4,5]
 
 var start = localStorage.startTime
 var end = localStorage.endTime
 var weekdays = localStorage.weekdaysArray
 
 var today = new Date()
+
 
 function newDoc()
   {
@@ -28,5 +29,6 @@ function checkDay()
       }
     }
   }
+
 
 //window.onLoad=checkDay();
